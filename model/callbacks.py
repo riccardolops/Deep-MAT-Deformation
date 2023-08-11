@@ -31,14 +31,16 @@ class PyVistaGifCallback(Callback):
         for lis in pl_module.training_outputs:
             for c in range(pl_module.config.num_classes - 1):
                 target_surface = pl_module.training_targets[mesh_n][c].detach().cpu().numpy()
+
                 skl_mesh = self.skl_mesh.copy()
-                skl_mesh.points = lis[0][-1][0][:, :, :-1].detach().squeeze().cpu().numpy() * pl_module.model.mat_features_scalar[:-1].numpy()
+                vtx = lis[0][-1][0][:, :, :].detach().squeeze().cpu().numpy() * pl_module.model.mat_features_scalar.cpu().numpy()
+                skl_mesh.points = vtx[:, :-1]
                 self.plotters[mesh_n].add_text("Target", font_size=30, color='#FF0000', position='upper_right')
                 self.plotters[mesh_n].add_points(target_surface, color='#FF0000', opacity=0.20)
 
                 self.plotters[mesh_n].add_text("X", font_size=30, color='#00FF00')
                 self.plotters[mesh_n].add_mesh(skl_mesh, color='#00FF00')
-                for point, rad in zip(skl_mesh.points, lis[0][-1][0][:, :, -1].detach().squeeze().cpu().numpy() * pl_module.model.mat_features_scalar[-1].numpy()):
+                for point, rad in zip(skl_mesh.points, vtx[:, -1]):
                     self.plotters[mesh_n].add_mesh(pv.Sphere(center=point, radius=rad), opacity=0.20)
                 # plotter.add_points(pred_points.detach().cpu().numpy())
                 self.plotters[mesh_n].write_frame()

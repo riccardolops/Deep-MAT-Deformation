@@ -104,9 +104,9 @@ class Feature2VertexLayer(nn.Module):
 
     def __init__(self, in_features, hidden_layer_count, batch_norm=False):
         super(Feature2VertexLayer, self).__init__()
-        self.gconv = []
+        self.gconv = nn.ModuleList()
         for i in range(hidden_layer_count, 1, -1):
-            self.gconv += [GraphConv(i * in_features // hidden_layer_count, (i-1) * in_features // hidden_layer_count, batch_norm)]
+            self.gconv.append(GraphConv(i * in_features // hidden_layer_count, (i-1) * in_features // hidden_layer_count, batch_norm))
         self.gconv_layer = nn.Sequential(*self.gconv)
         self.gconv_last = GraphConv(in_features // hidden_layer_count, 4, batch_norm)
 
@@ -121,9 +121,9 @@ class Features2Features(nn.Module):
         super(Features2Features, self).__init__()
 
         self.gconv_first = graph_conv(in_features, out_features)
-        gconv_hidden = []
+        gconv_hidden = nn.ModuleList()
         for i in range(hidden_layer_count):
-            gconv_hidden += [graph_conv(out_features, out_features)]
+            gconv_hidden.append(graph_conv(out_features, out_features))
         self.gconv_hidden = nn.Sequential(*gconv_hidden)
         self.gconv_last = graph_conv(out_features, out_features)
 

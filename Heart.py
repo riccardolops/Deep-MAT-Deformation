@@ -6,8 +6,7 @@ import os
 import numpy as np
 import torchio as tio
 from torch.utils.data import DataLoader
-from pytorch3d.io import load_obj, save_obj
-from pytorch3d.structures import Meshes
+from pytorch3d.io import load_obj
 
 
 class Heart(tio.SubjectsDataset):

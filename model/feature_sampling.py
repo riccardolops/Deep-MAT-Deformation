@@ -23,7 +23,7 @@ class SkipConnections(nn.Module):
         torch.nn.init.constant_(self.sum_neighbourhood.bias, 0)
 
     def forward(self, voxel_features, vertices):
-        neighbourhood = vertices[:, :, None, None].to(voxel_features.device) + self.shift[:, :, :, None].to(voxel_features.device)
+        neighbourhood = vertices[:, :, None, None] + self.shift[:, :, :, None]
         features = F.grid_sample(voxel_features, neighbourhood, mode='bilinear', padding_mode='border', align_corners=True)
         features = features[:, :, :, :, 0]
         features = self.sum_neighbourhood(features)[:, :, :, 0].transpose(2, 1)
@@ -54,7 +54,7 @@ class NeighbourhoodSampling(nn.Module):
         self.feature_center_2 = nn.Linear(features_count, features_count)
 
     def forward(self, voxel_features, vertices):
-        neighbourhood = vertices[:, :, None, None].to(voxel_features.device) + self.shift[:, :, :, None].to(voxel_features.device)
+        neighbourhood = vertices[:, :, None, None] + self.shift[:, :, :, None]
         features = F.grid_sample(voxel_features, neighbourhood, mode='bilinear', padding_mode='border', align_corners=True)
         features = features[:, :, :, :, 0]
 

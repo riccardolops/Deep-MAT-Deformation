@@ -1,11 +1,9 @@
-from data.Heart import Heart
 import os
 
 
 class Config:
-    def __init__(self, exp_id):
+    def __init__(self):
         super(Config, self).__init__()
-        self.experiment_idx = exp_id
         self.trial_id = None
         self.save_dir_prefix = 'Experiment_'  # prefix for experiment folder
         self.name = 'voxel2mesh'
@@ -17,19 +15,16 @@ class Config:
         # self.patch_shape = (100, 100, 100)
         self.grid_overlap = 0
         self.resize_shape = (96, 96, 96)
-        self.skl_path = "/home/rlops/s/lightning/model/left_atrium_100_pt.ma"
+        self.skl_path = "./model/left_atrium_100_pt.ma"
         self.restore_ckpt = False
-        self.save_path = "/home/rlops/final_graph_net"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
-        self.dataset_path = "/home/rlops/datasets/Task02_Heart"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.save_path = "/home/rick/projects/DMD_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.dataset_path = "/home/rick/datasets/Task02_Heart"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
 
         # Initialize data object
-        self.data_obj = Heart(base_dir=self.dataset_path)  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
-
         assert self.save_path is not None, "Set cfg.save_path in config.py"
         if not os.path.exists(self.save_path):
             os.makedirs(self.save_path)
         assert self.dataset_path is not None, "Set cfg.dataset_path in config.py"
-        assert self.data_obj is not None, "Set cfg.data_obj in config.py"
 
         self.profiler = None
         # "simple"

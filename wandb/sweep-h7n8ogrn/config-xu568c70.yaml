@@ -1,0 +1,12 @@
+wandb_version: 1
+
+batch_norm:
+  value: false
+first_layer_channels:
+  value: 16
+graph_conv_layer_count:
+  value: 4
+learning_rate:
+  value: 0.006932298309159386
+steps:
+  value: 2

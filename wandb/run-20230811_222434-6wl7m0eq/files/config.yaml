@@ -1,0 +1,48 @@
+wandb_version: 1
+
+batch_norm:
+  desc: null
+  value: false
+first_layer_channels:
+  desc: null
+  value: 8
+graph_conv_layer_count:
+  desc: null
+  value: 4
+learning_rate:
+  desc: null
+  value: 0.05995875358817265
+steps:
+  desc: null
+  value: 4
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.12
+    cli_version: 0.15.8
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1691785474.920165
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      - 105
+      2:
+      - 1
+      - 41
+      - 55
+      - 105
+      3:
+      - 2
+      - 23
+      - 37
+      4: 3.10.12
+      5: 0.15.8
+      8:
+      - 5
+config:
+  desc: null
+  value: <config.Config object at 0x7fba63acfbe0>

@@ -1,0 +1,53 @@
+/home/rick/mambaforge/envs/DMD/lib/python3.10/site-packages/lightning/pytorch/loggers/wandb.py:396: UserWarning: There is a wandb run already in progress and newly created instances of `WandbLogger` will reuse this run. If this is not desired, call `wandb.finish()` before instantiating `WandbLogger`.
+  rank_zero_warn(
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+/home/rick/mambaforge/envs/DMD/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:615: UserWarning: Checkpoint directory /home/rick/projects/DMD_waights exists and is not empty.
+  rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name  | Type       | Params
+-------------------------------------
+0 | model | Voxel2Mesh | 8.4 M
+-------------------------------------
+8.4 M     Trainable params
+23.2 K    Non-trainable params
+8.4 M     Total params
+33.793    Total estimated model params size (MB)
+
+Training is starting (>‘o’)>
+
+
+Epoch 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:11<00:00,  1.18s/it, v_num=wclg]
+
+
+
+
+
+Epoch 1: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:11<00:00,  1.20s/it, v_num=wclg]
+
+
+
+
+
+Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:12<00:00,  1.22s/it, v_num=wclg]
+
+
+
+
+
+Epoch 3: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:12<00:00,  1.23s/it, v_num=wclg]
+
+
+
+
+
+Epoch 4: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10 [00:12<00:00,  1.27s/it, v_num=wclg]
+
+
+
+
+Epoch 5:  20%|█████████████████████▍                                                                                     | 2/10 [00:08<00:35,  4.44s/it, v_num=wclg]
+
+Epoch 5:  40%|██████████████████████████████████████████▊                                                                | 4/10 [00:09<00:14,  2.45s/it, v_num=wclg]

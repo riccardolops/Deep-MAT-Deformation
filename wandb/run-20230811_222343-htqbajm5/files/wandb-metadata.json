@@ -1,0 +1,129 @@
+{
+    "os": "Linux-6.4.9-arch1-1-x86_64-with-glibc2.38",
+    "python": "3.10.12",
+    "heartbeatAt": "2023-08-11T20:23:44.011044",
+    "startedAt": "2023-08-11T20:23:43.152381",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/rick/projects/Deep-MAT-Deformation/sweep.py",
+    "codePath": "sweep.py",
+    "git": {
+        "remote": "https://github.com/riccardolops/Deep-MAT-Deformation.git",
+        "commit": "7fc4ca011f968650d62b19a801b5b8071cc984fd"
+    },
+    "email": "r.lops1@studenti.poliba.it",
+    "root": "/home/rick/projects/Deep-MAT-Deformation",
+    "host": "osmium",
+    "username": "rick",
+    "executable": "/home/rick/mambaforge/envs/DMD/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3849.7602500000003,
+        "min": 2200.0,
+        "max": 3600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 4148.772,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 2807.65,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 3682.943,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4148.749,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4020.336,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4148.433,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4149.944,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4147.867,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4139.603,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 2815.148,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 2979.519,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4029.181,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 3928.087,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4149.519,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4151.859,
+            "min": 2200.0,
+            "max": 3600.0
+        },
+        {
+            "current": 4148.554,
+            "min": 2200.0,
+            "max": 3600.0
+        }
+    ],
+    "disk": {
+        "total": 456.8864212036133,
+        "used": 399.027400970459
+    },
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 2060",
+            "memory_total": 6442450944
+        },
+        {
+            "name": "NVIDIA GeForce GTX 1080",
+            "memory_total": 8589934592
+        }
+    ],
+    "memory": {
+        "total": 62.717674255371094
+    }
+}
