@@ -59,6 +59,9 @@ class LitVoxel2Mesh(pl.LightningModule):
         loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean = np.mean(self.validation_losses, axis=0)
         values = {"val_loss": loss_mean, "val_sample": loss_sample_mean, "val_Point2Sphere": loss_point2sphere_mean, "val_Radius": loss_radius_mean, "val_Cross Entropy": ce_loss_mean}
         self.log_dict(values)
+        self.validation_targets.clear()
+        self.validation_outputs.clear()
+        self.validation_losses.clear()
 
     def configure_optimizers(self):
         optimizer = optim.Adam(filter(lambda p: p.requires_grad, self.parameters()), lr=self.config.learning_rate)
