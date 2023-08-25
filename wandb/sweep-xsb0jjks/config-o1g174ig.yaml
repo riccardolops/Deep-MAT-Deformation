@@ -1,0 +1,8 @@
+wandb_version: 1
+
+batch_norm:
+  value: false
+first_layer_channels:
+  value: 16
+learning_rate:
+  value: 0.021098212362848024

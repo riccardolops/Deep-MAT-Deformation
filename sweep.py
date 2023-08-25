@@ -30,18 +30,15 @@ if cfg.restore_ckpt:
 else:
     ckpt_path = None
 
-callbacks = [PyVistaGifCallback(), ModelCheckpoint(monitor='val_loss', dirpath=cfg.save_path, filename='{epoch:02d}-{val_loss:.2f}')]
+callbacks = [ModelCheckpoint(monitor='val_loss', dirpath=cfg.save_path, filename='{epoch:02d}-{val_loss:.2f}')]
 def train():
     wandb.init(project="DMD")
 
     cfg.learning_rate = wandb.config.learning_rate
     cfg.batch_norm = wandb.config.batch_norm
-    cfg.graph_conv_layer_count = wandb.config.graph_conv_layer_count
-    cfg.steps = wandb.config.steps
-    cfg.first_layer_channels = wandb.config.first_layer_channels
 
     logger = WandbLogger(project="DMD", save_dir="./logs/")
     trainer = pl.Trainer(accelerator="gpu", profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
     trainer.fit(LitVoxel2Mesh(cfg), train_dataloader, val_dataloader, ckpt_path=ckpt_path)
 
-wandb.agent('segment_/DMD/h7n8ogrn',function=train, project="DMD")
+wandb.agent('segment_/DMD/lqxa9sqp',function=train, project="DMD")

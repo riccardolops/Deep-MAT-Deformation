@@ -51,7 +51,7 @@ class Config:
         self.learning_rate = 1e-3
 
         ''' Training '''
-        self.numb_of_epochs = 100
+        self.numb_of_epochs = 50
         self.eval_every = 1  # saves results to disk
 
         # ''' Rreporting '''
