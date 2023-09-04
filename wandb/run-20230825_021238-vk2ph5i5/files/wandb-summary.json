@@ -1,1 +1,1 @@
-{}
+{"val_loss": 6736877.65, "val_sample": 4961489.7, "val_Point2Sphere": 2477911.8, "val_Radius": -2069416.5, "val_Cross Entropy": 0.18228248208761216, "epoch": 49, "trainer/global_step": 499, "_timestamp": 1692923919.976188, "_runtime": 1561.8430008888245, "_step": 99, "loss": 6809025.5, "sample": 4995181.85, "Point2Sphere": 2524946.325, "Radius": -2061134.4, "Cross Entropy": 0.18419335186481475, "_wandb": {"runtime": 1561}}

@@ -21,9 +21,19 @@ _wandb:
       - 41
       - 55
       - 105
+      2:
+      - 1
+      - 41
+      - 55
+      - 105
       3:
+      - 2
       - 23
+      - 37
       4: 3.10.12
       5: 0.15.8
       8:
       - 5
+config:
+  desc: null
+  value: <config.Config object at 0x7fb233bd67a0>

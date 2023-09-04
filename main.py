@@ -26,11 +26,11 @@ train_dataloader = train_dataset.get_loader(cfg)
 val_dataset = Heart(cfg.dataset_path, 'val', transform_val)
 val_dataloader = val_dataset.get_loader(cfg)
 if cfg.restore_ckpt:
-    ckpt_path = '/home/rick/projects/DMD_waights/epoch=59-val_loss=221.17.ckpt'
+    ckpt_path = '/home/rick/projects/DMD_waights/epoch=479-val_loss=70.86.ckpt'
 else:
     ckpt_path = None
 
 logger = WandbLogger(project="DMD", save_dir="./logs/")
-callbacks = [ModelCheckpoint(monitor='val_loss', dirpath=cfg.save_path, filename='{epoch:02d}-{val_loss:.2f}')]
+callbacks = [PyVistaGifCallback(), ModelCheckpoint(monitor='val_loss', dirpath=cfg.save_path, filename='{epoch:02d}-{val_loss:.2f}')]
 trainer = pl.Trainer(accelerator="gpu", devices=[0], profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
 trainer.fit(LitVoxel2Mesh(cfg), train_dataloader, val_dataloader, ckpt_path=ckpt_path)

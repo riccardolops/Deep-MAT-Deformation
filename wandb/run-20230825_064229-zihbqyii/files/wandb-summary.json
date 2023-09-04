@@ -1,0 +1,1 @@
+{"val_loss": NaN, "val_sample": NaN, "val_Point2Sphere": NaN, "val_Radius": NaN, "val_Cross Entropy": NaN, "epoch": 49, "trainer/global_step": 499, "_timestamp": 1692940144.9807565, "_runtime": 1595.518131494522, "_step": 99, "loss": NaN, "sample": NaN, "Point2Sphere": NaN, "Radius": NaN, "Cross Entropy": NaN, "_wandb": {"runtime": 1595}}

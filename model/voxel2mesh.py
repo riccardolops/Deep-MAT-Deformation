@@ -6,13 +6,14 @@ import model.DistanceFunction as DF
 from pytorch3d.structures import Meshes
 from pytorch3d.ops import sample_points_from_meshes
 from pytorch3d.loss import chamfer_distance
-
+import torch.nn.functional as F
 from itertools import chain
 from model.graph_conv import adjacency_matrix, Features2Features, Feature2VertexLayer
 from model.feature_sampling import LearntNeighbourhoodSampling
 from utils.file_handle import read_ma
 import torch.optim as optim
 import numpy as np
+import wandb
 
 
 class LitVoxel2Mesh(pl.LightningModule):
@@ -31,33 +32,43 @@ class LitVoxel2Mesh(pl.LightningModule):
     def training_step(self, batch):
         x = batch['volume']['data']
         pred = self.model(x)
-        ce_loss, loss_sample, loss_point2sphere, loss_radius, target_surface = self.model.compute_loss(pred, batch)
-        loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 1 * ce_loss
-        self.training_targets.append(target_surface)
+        ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius, target_segmentation = self.model.compute_loss(pred, batch)
+        loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 50 * ce_loss + 50 * loss_dice
+        self.training_targets.append(target_segmentation)
         self.training_outputs.append(pred)
-        self.training_losses.append([loss.item(), loss_sample.item(), loss_point2sphere.item(), loss_radius.item(), ce_loss.item()])
+        self.training_losses.append([loss.item(), loss_sample.item(), loss_point2sphere.item(), loss_radius.item(), ce_loss.item(), loss_dice.item()])
         return loss
 
     def validation_step(self, batch, batch_idx):
         x = batch['volume']['data']
         pred = self.model(x)
-        ce_loss, loss_sample, loss_point2sphere, loss_radius, target_surface = self.model.compute_loss(pred, batch)
-        loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 1 * ce_loss
-        self.validation_targets.append(target_surface)
+        ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius, target_segmentation = self.model.compute_loss(pred, batch)
+        loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 50 * ce_loss + 50 * loss_dice
+        self.validation_targets.append(target_segmentation)
         self.validation_outputs.append(pred)
-        self.validation_losses.append([loss.item(), loss_sample.item(), loss_point2sphere.item(), loss_radius.item(), ce_loss.item()])
+        self.validation_losses.append([loss.item(), loss_sample.item(), loss_point2sphere.item(), loss_radius.item(), ce_loss.item(), loss_dice.item()])
 
     def on_train_epoch_end(self):
-        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean = np.mean(self.training_losses, axis=0)
-        values = {"loss": loss_mean, "sample": loss_sample_mean, "Point2Sphere": loss_point2sphere_mean, "Radius": loss_radius_mean, "Cross Entropy": ce_loss_mean}
+        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean = np.mean(self.training_losses, axis=0)
+        values = {"loss": loss_mean, "sample": loss_sample_mean, "Point2Sphere": loss_point2sphere_mean, "Radius": loss_radius_mean, "Cross Entropy": ce_loss_mean, "Dice Loss": dice_loss_mean}
         self.log_dict(values)
+        for patient_pred, patient_target in zip(self.training_outputs, self.training_targets):
+            pred_tensor = patient_pred[0][-1][2]
+            class_predictions = torch.argmax(pred_tensor, dim=1)
+            segmentation_mask = (class_predictions == 1).float()
+            wandb.log({
+                "Predicted": [wandb.Image(np.uint8(segmentation_mask[0][50].cpu().numpy() * 255))],
+                "Target": [wandb.Image(np.uint8(patient_target[0][50].cpu().numpy() * 255))]
+            })
+
+
         self.training_outputs.clear()
         self.training_losses.clear()
         self.training_targets.clear()
 
     def on_validation_epoch_end(self):
-        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean = np.mean(self.validation_losses, axis=0)
-        values = {"val_loss": loss_mean, "val_sample": loss_sample_mean, "val_Point2Sphere": loss_point2sphere_mean, "val_Radius": loss_radius_mean, "val_Cross Entropy": ce_loss_mean}
+        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean = np.mean(self.validation_losses, axis=0)
+        values = {"val_loss": loss_mean, "val_sample": loss_sample_mean, "val_Point2Sphere": loss_point2sphere_mean, "val_Radius": loss_radius_mean, "val_Cross Entropy": ce_loss_mean, "val_Dice Loss": dice_loss_mean}
         self.log_dict(values)
         self.validation_targets.clear()
         self.validation_outputs.clear()
@@ -174,6 +185,7 @@ class Voxel2Mesh(nn.Module):
         self.D = nn.Parameter(D, requires_grad=False)
         self.average_segm_pos = nn.Parameter(torch.tensor([148., 174., 66.]), requires_grad=False)
         self.get_surface_points = MATMeshSurface(self.mat_edges.squeeze(), self.mat_faces.squeeze(), self.mat_lines.squeeze())
+        self.ce_weight = nn.Parameter(torch.tensor([0.5, 2.0]), requires_grad=False)
 
     def forward(self, x):
         vertices_features = self.mat_features.clone().to(x.device)
@@ -230,8 +242,19 @@ class Voxel2Mesh(nn.Module):
         target_segmentation = batch['segmentation']['data'].squeeze(0).long()
         predicted_segmentation = pred[0][-1][2]
 
-        cross_entropy_loss = nn.CrossEntropyLoss()
+        cross_entropy_loss = nn.CrossEntropyLoss(weight=self.ce_weight)
         ce_loss = cross_entropy_loss(predicted_segmentation, target_segmentation)
+        outputs_soft = F.softmax(predicted_segmentation, dim=1)
+        def dice_loss(score, target):
+            target = target.float()
+            smooth = 1e-5
+            intersect = torch.sum(score * target)
+            y_sum = torch.sum(target * target)
+            z_sum = torch.sum(score * score)
+            loss = (2 * intersect + smooth) / (z_sum + y_sum + smooth)
+            loss = 1 - loss
+            return loss
+        loss_dice = dice_loss(outputs_soft[:, 1, :, :, :], target_segmentation == 1)
         for c in range(self.config.num_classes - 1):
             shape_xyz = batch['surface_vtx'][c]
             shape_xyz = shape_xyz - shape_xyz.mean(dim=1) + self.centroid.to('cuda')
@@ -290,4 +313,4 @@ class Voxel2Mesh(nn.Module):
                 loss_point2sphere += cd_point2pshere1 + cd_point2sphere2
                 loss_radius += - torch.sum(skel_radius) / skel_pnum
 
-        return ce_loss, loss_sample, loss_point2sphere, loss_radius, shape_xyz
+        return ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius, target_segmentation

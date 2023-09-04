@@ -12,7 +12,9 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "env": {
-                "WANDB_MODE": "offline"
+                "WANDB_MODE": "offline",
+                "CUDA_VISIBLE_DEVICES": "1"
+
             }
         }
     ]

@@ -1,0 +1,39 @@
+wandb_version: 1
+
+batch_norm:
+  desc: null
+  value: true
+learning_rate:
+  desc: null
+  value: 0.007382524442550896
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.12
+    cli_version: 0.15.8
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1692966508.241525
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      - 105
+      2:
+      - 1
+      - 41
+      - 55
+      - 105
+      3:
+      - 2
+      - 23
+      - 37
+      4: 3.10.12
+      5: 0.15.8
+      8:
+      - 5
+config:
+  desc: null
+  value: <config.Config object at 0x7fbb153cb8b0>
