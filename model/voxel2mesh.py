@@ -28,15 +28,26 @@ class LitVoxel2Mesh(pl.LightningModule):
         self.validation_targets = []
         self.validation_outputs = []
         self.validation_losses = []
+        self.training_mesh_target = []
 
     def training_step(self, batch):
-        x = batch['volume']['data']
-        pred = self.model(x)
+        volume_data = batch['volume']['data']
+        pred = self.model(volume_data)
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius, target_segmentation = self.model.compute_loss(pred, batch)
         loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 50 * ce_loss + 50 * loss_dice
+
         self.training_targets.append(target_segmentation)
         self.training_outputs.append(pred)
-        self.training_losses.append([loss.item(), loss_sample.item(), loss_point2sphere.item(), loss_radius.item(), ce_loss.item(), loss_dice.item()])
+        self.training_mesh_target.append(batch['surface_vtx'][0])
+        self.training_losses.append([
+            loss.item(),
+            loss_sample.item(),
+            loss_point2sphere.item(),
+            loss_radius.item(),
+            ce_loss.item(),
+            loss_dice.item()
+        ])
+
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -65,6 +76,8 @@ class LitVoxel2Mesh(pl.LightningModule):
         self.training_outputs.clear()
         self.training_losses.clear()
         self.training_targets.clear()
+        self.training_mesh_target.clear()
+
 
     def on_validation_epoch_end(self):
         loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean = np.mean(self.validation_losses, axis=0)
@@ -95,14 +108,14 @@ def crop_and_merge(tensor1, tensor2):
 
 class UNetLayer(nn.Module):
     """ U-Net Layer """
-    def __init__(self, num_channels_in, num_channels_out):
+    def __init__(self, in_channels, out_channels):
         super(UNetLayer, self).__init__()
 
-        conv1 = nn.Conv3d(num_channels_in,  num_channels_out, kernel_size=3, padding=1)
-        conv2 = nn.Conv3d(num_channels_out, num_channels_out, kernel_size=3, padding=1)
+        conv1 = nn.Conv3d(in_channels,  out_channels, kernel_size=3, padding=1)
+        conv2 = nn.Conv3d(out_channels, out_channels, kernel_size=3, padding=1)
 
-        bn1 = nn.BatchNorm3d(num_channels_out)
-        bn2 = nn.BatchNorm3d(num_channels_out)
+        bn1 = nn.BatchNorm3d(out_channels)
+        bn2 = nn.BatchNorm3d(out_channels)
 
         self.unet_layer = nn.Sequential(conv1, bn1, nn.ReLU(), conv2, bn2, nn.ReLU())
 
@@ -141,7 +154,7 @@ class Voxel2Mesh(nn.Module):
         for i in range(config.steps+1):
             feature2feature_layers = nn.ModuleList()
             feature2vertex_layers = nn.ModuleList()
-            self.skip_connection.append(LearntNeighbourhoodSampling(config, self.skip_count[i], i))
+            self.skip_connection.append(LearntNeighbourhoodSampling(config, self.skip_count[i]))
             if i == 0:
                 self.grid_upconv_layer.append(None)
                 self.grid_unet_layer.append(None)
@@ -166,7 +179,7 @@ class Voxel2Mesh(nn.Module):
 
         mat_path = config.skl_path
         vertices, radii, mat_edges, mat_faces, mat_lines = read_ma(mat_path)
-        mat_features = torch.cat([vertices, radii.unsqueeze(1)], dim=1)
+        mat_features = torch.cat([vertices - vertices.mean(0), radii.unsqueeze(1)], dim=1)
         mat_features = mat_features.float()
 
         #self.mat_features = (mat_features/torch.sqrt(torch.sum(mat_features**2, dim=0))).unsqueeze(0)
@@ -257,7 +270,7 @@ class Voxel2Mesh(nn.Module):
         loss_dice = dice_loss(outputs_soft[:, 1, :, :, :], target_segmentation == 1)
         for c in range(self.config.num_classes - 1):
             shape_xyz = batch['surface_vtx'][c]
-            shape_xyz = shape_xyz - shape_xyz.mean(dim=1) + self.centroid.to('cuda')
+
             (vertices, _, _, _) = pred[c][1:][0]
             skel_xyzr = vertices * self.mat_features_scalar
             #pred_points = self.get_surface_points(skel_xyzr.squeeze())

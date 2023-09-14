@@ -75,7 +75,7 @@ class NeighbourhoodSampling(nn.Module):
 
 
 class LearntNeighbourhoodSampling(nn.Module):
-    def __init__(self, config, features_count, step):
+    def __init__(self, config, features_count):
         super(LearntNeighbourhoodSampling, self).__init__()
 
         D, H, W = config.patch_shape 

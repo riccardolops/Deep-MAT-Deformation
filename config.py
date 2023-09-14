@@ -17,8 +17,8 @@ class Config:
         self.resize_shape = (96, 96, 96)
         self.skl_path = "./model/left_atrium_100_pt.ma"
         self.restore_ckpt = False
-        self.save_path = "/home/rick/projects/DMD_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
-        self.dataset_path = "/home/rick/datasets/Task02_Heart"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.save_path = "/home/rick/Documenti/Projects/models_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.dataset_path = "/home/rick/Documenti/Projects/datasets/Task02_Heart"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
 
         # Initialize data object
         assert self.save_path is not None, "Set cfg.save_path in config.py"
@@ -51,8 +51,14 @@ class Config:
         self.learning_rate = 1e-3
 
         ''' Training '''
-        self.numb_of_epochs = 500
+        self.numb_of_epochs = 50
         self.eval_every = 1  # saves results to disk
+
+        ''' Pesi Loss '''
+        self.lambda_p2s = 0.8
+        self.lambda_radius = 0.1
+        self.lambda_ce = 50
+        self.lambda_dice = 50
 
         # ''' Rreporting '''
         # cfg.wab = True # use weight and biases for reporting

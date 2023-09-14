@@ -2,7 +2,7 @@ import lightning.pytorch as pl
 from Heart import Heart
 import torchio as tio
 from config import Config
-from model.voxel2mesh import LitVoxel2Mesh, Voxel2Mesh
+from model.deepMATdeform import LitVoxel2MAT
 from lightning.pytorch.loggers.wandb import WandbLogger
 from model.callbacks import PyVistaGifCallback
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
@@ -30,15 +30,18 @@ if cfg.restore_ckpt:
 else:
     ckpt_path = None
 
-callbacks = [ModelCheckpoint(monitor='val_loss', dirpath=cfg.save_path, filename='{epoch:02d}-{val_loss:.2f}')]
+callbacks = [ModelCheckpoint(monitor='val_sample', dirpath=cfg.save_path, filename='{epoch:02d}-{val_sample:.2f}')]
 def train():
-    wandb.init(project="DMD")
+    wandb.init(project="Deep-MAT-Deformation")
 
     cfg.learning_rate = wandb.config.learning_rate
-    cfg.batch_norm = wandb.config.batch_norm
+    cfg.lambda_p2s = wandb.config.lambda_p2s
+    cfg.lambda_radius = wandb.config.lambda_radius
+    cfg.lambda_ce = wandb.config.lambda_ce
+    cfg.lambda_dice = wandb.config.lambda_dice
 
-    logger = WandbLogger(project="DMD", save_dir="./logs/")
+    logger = WandbLogger(project="Deep-MAT-Deformation", save_dir="/home/rick/Documenti/Projects/DMD_wandb")
     trainer = pl.Trainer(accelerator="gpu", profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
-    trainer.fit(LitVoxel2Mesh(cfg), train_dataloader, val_dataloader, ckpt_path=ckpt_path)
+    trainer.fit(LitVoxel2MAT(cfg), train_dataloader, val_dataloader, ckpt_path=ckpt_path)
 
-wandb.agent('segment_/DMD/lqxa9sqp',function=train, project="DMD")
+wandb.agent('segment_/Deep-MAT-Deformation/jk4fnbo3',function=train, project="Deep-MAT-Deformation")

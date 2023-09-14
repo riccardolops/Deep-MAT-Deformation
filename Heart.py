@@ -56,5 +56,5 @@ class Heart(tio.SubjectsDataset):
         return subjects
 
     def get_loader(self, config):
-        loader = DataLoader(self, batch_size=config.batch_size, num_workers=config.num_workers)
+        loader = DataLoader(self, batch_size=config.batch_size, num_workers=config.num_workers, pin_memory=True)
         return loader
