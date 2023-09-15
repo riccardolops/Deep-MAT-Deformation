@@ -1,12 +1,12 @@
-import lightning.pytorch as pl
+import pytorch_lightning as pl
 from Heart import Heart
 import torchio as tio
 from config import Config
 from model.deepMATdeform import LitVoxel2MAT
-from lightning.pytorch.loggers.wandb import WandbLogger
+from pytorch_lightning.loggers.wandb import WandbLogger
 from model.callbacks import PyVistaGifCallback
-from lightning.pytorch.callbacks.early_stopping import EarlyStopping
-from lightning.pytorch.callbacks import ModelCheckpoint
+from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+from pytorch_lightning.callbacks import ModelCheckpoint
 import wandb
 
 cfg = Config()
@@ -44,4 +44,4 @@ def train():
     trainer = pl.Trainer(accelerator="gpu", profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
     trainer.fit(LitVoxel2MAT(cfg), train_dataloader, val_dataloader, ckpt_path=ckpt_path)
 
-wandb.agent('segment_/Deep-MAT-Deformation/jk4fnbo3',function=train, project="Deep-MAT-Deformation")
+wandb.agent('segment_/Deep-MAT-Deformation/1uj8xb71',function=train, project="Deep-MAT-Deformation")

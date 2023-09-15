@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch
 from model.graph_conv import Features2Features, Feature2VertexLayer
 from model.feature_sampling import LearntNeighbourhoodSampling
-import lightning as pl
 import torch.nn.functional as F
 import model.DistanceFunction as DF
 import numpy as np
@@ -11,6 +10,7 @@ import torch.optim as optim
 from utils.file_handle import read_ma
 from model.graph_conv import adjacency_matrix
 import wandb
+import pytorch_lightning as pl
 
 
 
@@ -44,6 +44,12 @@ class LitVoxel2MAT(pl.LightningModule):
         A = nn.Parameter(A, requires_grad=False)
         D = nn.Parameter(D, requires_grad=False)
         self.graph_network = MATDecoder(config, A, D)
+
+    def predict_step(self, batch, batch_idx, dataloader_idx=0):
+        volume_data = batch['volume']['data']
+        voxel_pred, MAT_deformed = self(volume_data)
+        mask = (torch.argmax(F.softmax(voxel_pred, dim=1), dim=1)).squeeze(0)
+        return mask, MAT_deformed[-1], batch['surface_vtx'][0]
 
     def forward(self, volume_data):
         """ Input : volume_data, Output : voxel_pred, MAT_deformed """

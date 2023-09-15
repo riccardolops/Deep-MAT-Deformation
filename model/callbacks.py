@@ -1,4 +1,4 @@
-from lightning.pytorch.callbacks import Callback
+from pytorch_lightning.callbacks import Callback
 import pyvista as pv
 import numpy as np
 
