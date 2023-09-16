@@ -6,7 +6,8 @@ import os
 import numpy as np
 import torchio as tio
 from torch.utils.data import DataLoader
-from pytorch3d.io import load_obj
+import torch
+import open3d as o3d
 
 
 class Heart(tio.SubjectsDataset):
@@ -27,26 +28,26 @@ class Heart(tio.SubjectsDataset):
             if split=='train':
                 dataset = json_dataset[:10]
                 for patient in dataset:
-                    verts, faces, _ = load_obj((root / patient['surface']))
+                    mesh = o3d.io.read_triangle_mesh(str(root / patient['surface']))
+                    verts = torch.tensor(np.asarray(mesh.vertices))
                     subject_dict = {
                         'patient': patient,
                         'volume': tio.ScalarImage(root / patient['image']),
                         'segmentation': tio.LabelMap(root / patient['label']),
                         'surface_vtx': verts.unsqueeze(0),
-                        'surface_face': faces[0].unsqueeze(0),
                     }
                     subjects.append(tio.Subject(**subject_dict))
                 print(f"Loaded {len(subjects)} patients for split {split}")
             elif split == 'val':
                 dataset = json_dataset[-10:]
                 for patient in dataset:
-                    verts, faces, _ = load_obj((root / patient['surface']))
+                    mesh = o3d.io.read_triangle_mesh(str(root / patient['surface']))
+                    verts = torch.tensor(np.asarray(mesh.vertices))
                     subject_dict = {
                         'patient': patient,
                         'volume': tio.ScalarImage(root / patient['image']),
                         'segmentation': tio.LabelMap(root / patient['label']),
                         'surface_vtx': verts.unsqueeze(0),
-                        'surface_face': faces[0].unsqueeze(0),
                     }
                     subjects.append(tio.Subject(**subject_dict))
                 print(f"Loaded {len(subjects)} patients for split {split}")
