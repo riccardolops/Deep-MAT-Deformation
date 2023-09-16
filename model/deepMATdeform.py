@@ -49,7 +49,7 @@ class LitVoxel2MAT(pl.LightningModule):
         volume_data = batch['volume']['data']
         voxel_pred, MAT_deformed = self(volume_data)
         mask = (torch.argmax(F.softmax(voxel_pred, dim=1), dim=1)).squeeze(0)
-        return mask, MAT_deformed[-1], batch['surface_vtx'][0]
+        return mask, MAT_deformed, batch['surface_vtx'][0]
 
     def forward(self, volume_data):
         """ Input : volume_data, Output : voxel_pred, MAT_deformed """
@@ -141,7 +141,7 @@ class LitVoxel2MAT(pl.LightningModule):
         voxel_pred, MAT_deformed = self(volume_data)
         self.training_outputs.append([voxel_pred, MAT_deformed])
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius = self.loss(voxel_pred, MAT_deformed, batch)
-        loss = loss_sample + self.config.lambda_p2s * loss_point2sphere + self.config.lambda_radius * loss_radius + self.config.lambda_ce * ce_loss + self.config.lambda_dice * loss_dice
+        loss = self.config.lambda_sample * loss_sample + self.config.lambda_p2s * loss_point2sphere + self.config.lambda_radius * loss_radius + self.config.lambda_ce * ce_loss + self.config.lambda_dice * loss_dice
         self.training_losses.append([
             loss.item(),
             loss_sample.item(),

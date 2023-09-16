@@ -14,7 +14,7 @@ class Config:
         self.batch_size = 1
         # self.patch_shape = (100, 100, 100)
         self.grid_overlap = 0
-        self.resize_shape = (96, 96, 96)
+        self.resize_shape = (128, 128, 128) # (96, 96, 96)
         self.skl_path = "./model/left_atrium_100_pt.ma"
         self.restore_ckpt = False
         self.save_path = "/home/rick/Documenti/Projects/models_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
@@ -38,7 +38,7 @@ class Config:
         ''' Model '''
         self.first_layer_channels = 16
         self.num_input_channels = 1
-        self.steps = 4
+        self.steps = 5
 
         # Only supports batch size 1 at the moment.
         # self.batch_size = 1
@@ -55,10 +55,11 @@ class Config:
         self.eval_every = 1  # saves results to disk
 
         ''' Pesi Loss '''
-        self.lambda_p2s = 0.8
-        self.lambda_radius = 0.1
-        self.lambda_ce = 50
+        self.lambda_p2s = 2
+        self.lambda_radius = 0.001
+        self.lambda_ce = 100
         self.lambda_dice = 50
+        self.lambda_sample = 2
 
         # ''' Rreporting '''
         # cfg.wab = True # use weight and biases for reporting

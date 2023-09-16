@@ -23,6 +23,18 @@ train_dataloader = train_dataset.get_loader(cfg)
 val_dataset = Heart(cfg.dataset_path, 'val', transform_val)
 val_dataloader = val_dataset.get_loader(cfg)
 
+for batch in train_dataloader:
+    segmentations = batch['segmentation']  # Binary segmentations
+    binary_segmentation = segmentations['data']
+    binary_segmentation_np = binary_segmentation.squeeze().cpu().numpy()
+    mcs_vert, mcs_tri, _, _ = measure.marching_cubes(binary_segmentation_np, 0)
+    mcs_mesh = o3d.geometry.TriangleMesh()
+    mcs_mesh.vertices = o3d.utility.Vector3dVector(mcs_vert)
+    mcs_mesh.triangles = o3d.utility.Vector3iVector(mcs_tri)
+
+    # Save the TriangleMesh as an OBJ file
+    o3d.io.write_triangle_mesh(str((Path(cfg.dataset_path) / batch['patient']['surface'][0])), mcs_mesh)
+
 for batch in val_dataloader:
     segmentations = batch['segmentation']  # Binary segmentations
     binary_segmentation = segmentations['data']

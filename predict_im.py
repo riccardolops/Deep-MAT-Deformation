@@ -37,32 +37,25 @@ skl_mesh = pv.PolyData(model.mat_features.squeeze().numpy()[:, :-1], faces=faces
                             lines=lines_padded)
 
 for patient in predictions:
+    mask = patient[0]
     MAT = patient[1]
+    target = patient[2]
+    target_surface = target.squeeze().numpy()
+    skl_meshp = skl_mesh.copy()
+    vtx = MAT[-1].squeeze().numpy()
+    skl_meshp.points = vtx[:, :-1]
+    centroid = first_moment(mask)
+
     plot = pv.Plotter(notebook=False)
-    plot.open_gif("wave.gif")
-    i = 0
-    for poi in MAT:
-        mask = patient[0]
-        target = patient[2]
-        target_surface = target.squeeze().numpy()
-        skl_meshp = skl_mesh.copy()
-        centroid = first_moment(mask)
+    plot.add_text("Target", font_size=30, color='#FF0000', position='upper_right')
+    plot.add_points(target_surface, color='#FF0000', opacity=0.20)
 
-        plot.add_text("Target", font_size=30, color='#FF0000', position='upper_right')
-        plot.add_points(target_surface, color='#FF0000', opacity=0.20)
-
-        plot.add_text("X", font_size=30, color='#00FF00')
-
-        vtx = poi.squeeze().numpy()
-        skl_meshp.points = vtx[:, :-1]
-        plot.add_mesh(skl_meshp, color='#00FF00')
-        for point, rad in zip(skl_meshp.points, vtx[:, -1]):
-            plot.add_mesh(pv.Sphere(center=point, radius=rad), opacity=0.20)
-            # plotter.add_points(pred_points.detach().cpu().numpy())
-        plot.write_frame()
-        plot.clear()
-        i += 1
-    plot.close()
+    plot.add_text("X", font_size=30, color='#00FF00')
+    plot.add_mesh(skl_meshp, color='#00FF00')
+    for point, rad in zip(skl_meshp.points, vtx[:, -1]):
+        plot.add_mesh(pv.Sphere(center=point, radius=rad), opacity=0.20)
+    # plotter.add_points(pred_points.detach().cpu().numpy())
+    plot.show()
 
 print(predictions)
 
