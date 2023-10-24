@@ -1,6 +1,0 @@
-wandb_version: 1
-
-batch_norm:
-  value: true
-learning_rate:
-  value: 0.06785793224865606

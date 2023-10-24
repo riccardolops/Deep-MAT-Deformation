@@ -18,7 +18,7 @@ class Config:
         self.skl_path = "./model/left_atrium_100_pt.ma"
         self.restore_ckpt = False
         self.save_path = "/home/rick/Documenti/Projects/models_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
-        self.dataset_path = "/home/rick/Documenti/Projects/datasets/Task02_Heart"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.dataset_path = "/home/rick/Documenti/Projects/datasets/AVT"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
 
         # Initialize data object
         assert self.save_path is not None, "Set cfg.save_path in config.py"
