@@ -3,9 +3,6 @@ import torch
 from mat.mat_handling import MATMeshSurface
 import lightning as pl
 import model.DistanceFunction as DF
-from pytorch3d.structures import Meshes
-from pytorch3d.ops import sample_points_from_meshes
-from pytorch3d.loss import chamfer_distance
 import torch.nn.functional as F
 from itertools import chain
 from model.graph_conv import adjacency_matrix, Features2Features, Feature2VertexLayer
