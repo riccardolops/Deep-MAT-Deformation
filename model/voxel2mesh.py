@@ -4,7 +4,6 @@ from mat.mat_handling import MATMeshSurface
 import lightning as pl
 import model.DistanceFunction as DF
 import torch.nn.functional as F
-from itertools import chain
 from model.graph_conv import adjacency_matrix, Features2Features, Feature2VertexLayer
 from model.feature_sampling import LearntNeighbourhoodSampling
 from utils.file_handle import read_ma
