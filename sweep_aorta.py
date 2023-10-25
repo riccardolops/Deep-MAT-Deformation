@@ -3,8 +3,6 @@ from monai.transforms import ( Compose, LoadImaged, ToTensord, Spacingd, ScaleIn
 from config import Config
 from model.deepMATdeform import LitVoxel2MAT
 from pytorch_lightning.loggers.wandb import WandbLogger
-from model.callbacks import PyVistaGifCallback
-from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 import wandb
 from AortaDataset import AortaDataset, LoadObjd
