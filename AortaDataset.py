@@ -1,20 +1,30 @@
 from glob import glob
 from typing import Mapping, Hashable
-
-from monai.config import KeysCollection
-from monai.data import Dataset, DataLoader, partition_dataset
 import os
+from monai.config import KeysCollection
+from monai.data import PersistentDataset, DataLoader, partition_dataset
 import open3d as o3d
 from monai.transforms import MapTransform
 import torch
 import numpy as np
 
 
-class AortaDataset(Dataset):
+class AortaDataset(PersistentDataset):
     def __init__(self, cfg, splits, transform=None):
+        """
+        Initializes an instance of the class.
+
+        Parameters:
+            cfg (Config): The configuration object.
+            splits (list): A list of splits.
+            transform (optional): An optional transform to be applied to the data.
+
+        Returns:
+            None
+        """
         self.cfg = cfg
         subjects_dict = self._get_subjects_dict(splits)
-        super().__init__(data=subjects_dict, transform=transform)
+        super().__init__(data=subjects_dict, transform=transform, cache_dir=cfg.dataset_cache)
 
     def _get_subjects_dict(self, splits):
         """
@@ -23,16 +33,16 @@ class AortaDataset(Dataset):
         Returns:
             dict: A dictionary of subjects from the dataset.
         """
-        images = sorted(glob(os.path.join(self.cfg.dataset_path, '*/*/*.nrrd')))
-        labels = sorted(glob(os.path.join(self.cfg.dataset_path, '*/*/*.seg.nrrd')))
+        images = sorted(glob(os.path.join(self.cfg.dataset_path, '*', '*', '*.nrrd')))
+        labels = sorted(glob(os.path.join(self.cfg.dataset_path, '*', '*', '*.seg.nrrd')))
         images = [image for image in images if image not in labels]
-        models = sorted(glob(os.path.join(self.cfg.dataset_path, '*/*/*.obj')))
+        models = sorted(glob(os.path.join(self.cfg.dataset_path, '*', '*', '*.obj')))
         datalist = [{"image": image_name, "label": label_name, "surface_vtx": model_name} for image_name, label_name, model_name in zip(images, labels, models)]
         train_datalist, val_datalist = partition_dataset(
             datalist,
             ratios=[self.cfg.split, (1 - self.cfg.split)],
             shuffle=self.cfg.dataset_suffle,
-            seed=self.cfg.seed,
+            seed=self.cfg.seed
         )
         if splits == 'train':
             return train_datalist

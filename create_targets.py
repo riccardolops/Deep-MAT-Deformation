@@ -1,8 +1,6 @@
 import os
 from glob import glob
 
-from Aorta import Aorta
-import torchio as tio
 from config import Config
 import open3d as o3d
 from skimage import measure
@@ -38,5 +36,6 @@ for batch in dataloader:
     mcs_mesh.triangles = o3d.utility.Vector3iVector(mcs_tri)
 
     # Save the TriangleMesh as an OBJ file
+    print(binary_segmentation.size())
     print('Saving: ' + binary_segmentation.meta['filename_or_obj'][0][:-9] + '.obj')
     o3d.io.write_triangle_mesh(binary_segmentation.meta['filename_or_obj'][0][:-9] + '.obj', mcs_mesh)

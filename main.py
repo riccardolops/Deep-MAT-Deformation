@@ -1,15 +1,12 @@
 import lightning.pytorch as pl
-from Heart import Heart
-from AortaDataset import AortaDataset, LoadObjd
-import torchio as tio
-from monai.transforms import ( Compose, LoadImaged, ToTensord, Spacingd, ScaleIntensityd, Resized, EnsureChannelFirstd)
+from monai.transforms import ( Compose, LoadImaged, ToTensord, Spacingd, ScaleIntensityd, Resized, EnsureChannelFirstd )
+from lightning.pytorch.callbacks import ModelCheckpoint
 from config import Config
 from model.voxel2mesh import LitVoxel2Mesh
 from lightning.pytorch.loggers.wandb import WandbLogger
 from model.callbacks import PyVistaGifCallback
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
-from lightning.pytorch.callbacks import ModelCheckpoint
-
+from AortaDataset import AortaDataset, LoadObjd
 
 cfg = Config()
 # preprocessing = tio.RescaleIntensity((0, 1))
@@ -47,7 +44,7 @@ if cfg.restore_ckpt:
 else:
     ckpt_path = None
 
-logger = WandbLogger(project="Deep-MAT-Deformation", save_dir="C:/Users/rick/Documents/Projects/DMD_wandb")
+logger = WandbLogger(project="Deep-MAT-Deformation", save_dir="\\Users\\rick\\Documents\\Projects\\DMD_wandb")
 callbacks = [ModelCheckpoint(monitor='val_loss', dirpath=cfg.save_path, filename='{epoch:02d}-{val_loss:.2f}')]
 trainer = pl.Trainer(accelerator="gpu", devices=[1], profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
 trainer.fit(LitVoxel2Mesh(cfg), train_dataloader, val_dataloader, ckpt_path=ckpt_path)
