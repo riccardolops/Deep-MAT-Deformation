@@ -17,12 +17,11 @@ labels = sorted(glob(os.path.join(cfg.dataset_path, '*/*/*.seg.nrrd')))
 images = [image for image in images if image not in labels]
 files = [{"image": image_name, "label": label_name} for image_name, label_name in zip(images, labels)]
 transforms = Compose([
-    LoadImaged(keys=['image', 'label']),
-    EnsureChannelFirstd(keys=['image', 'label']),
-    Spacingd(keys=['image', 'label'], pixdim=(3, 3, 3)),
-    ScaleIntensityd(keys=['image', 'label'], minv=0.0, maxv=1.0),
-    Resized(keys=['image', 'label'], spatial_size=cfg.resize_shape),
-    ToTensord(keys=['image', 'label'])
+    LoadImaged(keys=['label']),
+    EnsureChannelFirstd(keys=['label']),
+    Spacingd(keys=['label'], pixdim=(5, 5, 5)),
+    Resized(keys=['label'], spatial_size=cfg.resize_shape),
+    ToTensord(keys=['label'])
 ])
 dataset = Dataset(data = files ,transform = transforms)
 dataloader = DataLoader(dataset, cfg.batch_size)
