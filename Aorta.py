@@ -1,11 +1,21 @@
-import torchio as tio
-from torch.utils.data import DataLoader
+from monai.data import Dataset, DataLoader, partition_dataset
 import os
+import numpy as np
 
 
-class Aorta(tio.SubjectsDataset):
+class Aorta(Dataset):
     def __init__(self, root, transform=None, **kwargs):
+
+        train_datalist, val_datalist = partition_dataset(
+            datalist,
+            ratios=[args.split, (1 - args.split)],
+            shuffle=True,
+            seed=args.seed,
+        )
+
         subjects_list = self._get_subjects_list(root)
+
+
         super().__init__(subjects_list, transform, **kwargs)
 
     def _get_subjects_list(self, root):
@@ -25,11 +35,14 @@ class Aorta(tio.SubjectsDataset):
             for patient in patients:
                 image_path = os.path.join(root, division, patient, patient.split(' ')[0] + '.nrrd')
                 label_path = os.path.join(root, division, patient, patient.split(' ')[0] + '.seg.nrrd')
-                lab = tio.LabelMap(label_path)
+                volume = canonical(tio.ScalarImage(image_path))
+                segment = canonical(tio.LabelMap(label_path))
+                print(segment.affine == volume.affine)
+
                 subject_dict = {
                     'path': os.path.join(root, division, patient, patient.split(' ')[0]),
-                    'volume': tio.ScalarImage(image_path, affine = lab.affine),
-                    'segmentation': tio.LabelMap(label_path, affine = lab.affine)
+                    'volume': volume,
+                    'segmentation': segment
                 }
 
                 subjects.append(tio.Subject(**subject_dict))

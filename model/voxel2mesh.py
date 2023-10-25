@@ -27,7 +27,7 @@ class LitVoxel2Mesh(pl.LightningModule):
         self.training_mesh_target = []
 
     def training_step(self, batch):
-        volume_data = batch['volume']['data']
+        volume_data = batch['image']
         pred = self.model(volume_data)
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius, target_segmentation = self.model.compute_loss(pred, batch)
         loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 50 * ce_loss + 50 * loss_dice
@@ -47,7 +47,7 @@ class LitVoxel2Mesh(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        x = batch['volume']['data']
+        x = batch['image']
         pred = self.model(x)
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius, target_segmentation = self.model.compute_loss(pred, batch)
         loss = loss_sample + 0.8 * loss_point2sphere + 0.1 * loss_radius + 50 * ce_loss + 50 * loss_dice
@@ -248,7 +248,7 @@ class Voxel2Mesh(nn.Module):
         return pred
 
     def compute_loss(self, pred, batch):
-        target_segmentation = batch['segmentation']['data'].squeeze(0).long()
+        target_segmentation = batch['label'].squeeze(0).long()
         predicted_segmentation = pred[0][-1][2]
 
         cross_entropy_loss = nn.CrossEntropyLoss(weight=self.ce_weight)

@@ -32,8 +32,8 @@ class Heart(tio.SubjectsDataset):
                     verts = torch.tensor(np.asarray(mesh.vertices))
                     subject_dict = {
                         'patient': patient,
-                        'volume': tio.ScalarImage(root / patient['image']),
-                        'segmentation': tio.LabelMap(root / patient['label']),
+                        'image': tio.ScalarImage(root / patient['image']),
+                        'label': tio.LabelMap(root / patient['label']),
                         'surface_vtx': verts.unsqueeze(0),
                     }
                     subjects.append(tio.Subject(**subject_dict))
@@ -45,8 +45,8 @@ class Heart(tio.SubjectsDataset):
                     verts = torch.tensor(np.asarray(mesh.vertices))
                     subject_dict = {
                         'patient': patient,
-                        'volume': tio.ScalarImage(root / patient['image']),
-                        'segmentation': tio.LabelMap(root / patient['label']),
+                        'image': tio.ScalarImage(root / patient['image']),
+                        'label': tio.LabelMap(root / patient['label']),
                         'surface_vtx': verts.unsqueeze(0),
                     }
                     subjects.append(tio.Subject(**subject_dict))
