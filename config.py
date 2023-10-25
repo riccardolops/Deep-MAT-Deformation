@@ -17,8 +17,8 @@ class Config:
         self.resize_shape = (96, 96, 96) # (128, 128, 128) #
         self.skl_path = "./model/left_atrium_100_pt.ma"
         self.restore_ckpt = False
-        self.save_path = "/home/rick/Documenti/Projects/models_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
-        self.dataset_path = "/home/rick/Documenti/Projects/datasets/AVT"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.save_path = "C:/Users/rick/Documents/Projects/models_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
+        self.dataset_path = "C:/Users/rick/Documents/Projects/datasets/AVT"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
         self.split = 0.80
         self.seed = 0
         self.dataset_suffle = False
