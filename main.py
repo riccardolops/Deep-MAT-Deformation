@@ -29,7 +29,7 @@ transform_train = Compose([
     LoadImaged(keys=keys),
     LoadObjd(keys=['surface_vtx']),
     EnsureChannelFirstd(keys=keys),
-    Spacingd(keys=keys, pixdim=(5, 5, 5)),
+    Spacingd(keys=keys, pixdim=(3, 3, 3)),
     ScaleIntensityd(keys=['image'], minv=0.0, maxv=1.0),
     Resized(keys=keys, spatial_size=cfg.resize_shape),
     ToTensord(keys=keys)

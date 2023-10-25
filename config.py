@@ -15,7 +15,7 @@ class Config:
         # self.patch_shape = (100, 100, 100)
         self.grid_overlap = 0
         self.resize_shape = (96, 96, 96) # (128, 128, 128) # (96, 96, 96)
-        self.skl_path = "./model/left_atrium_100_pt.ma"
+        self.skl_path = "./model/D14.ma___v_100___e_196___f_107.ma"
         self.restore_ckpt = False
         self.save_path = "\\Users\\rick\\Documents\\Projects\\models_waights"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
         self.dataset_path = "\\Users\\rick\\Documents\\datasets\\AVT"  # UPDATE HERE <<<<<<<<<<<<<<<<<<<<<<
@@ -42,7 +42,7 @@ class Config:
         ''' Model '''
         self.first_layer_channels = 16
         self.num_input_channels = 1
-        self.steps = 5
+        self.steps = 4
 
         # Only supports batch size 1 at the moment.
         # self.batch_size = 1
