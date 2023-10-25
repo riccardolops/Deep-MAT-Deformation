@@ -4,6 +4,7 @@ from glob import glob
 from config import Config
 import open3d as o3d
 from skimage import measure
+import mcubes
 from monai.data import Dataset, DataLoader
 from monai.transforms import ( Compose, LoadImaged, ToTensord, Spacingd, ScaleIntensityd, Resized, EnsureChannelFirstd)
 from monai.utils import first
@@ -19,7 +20,7 @@ files = [{"image": image_name, "label": label_name} for image_name, label_name i
 transforms = Compose([
     LoadImaged(keys=['label']),
     EnsureChannelFirstd(keys=['label']),
-    Spacingd(keys=['label'], pixdim=(5, 5, 5)),
+    Spacingd(keys=['label'], pixdim=(3, 3, 3)),
     Resized(keys=['label'], spatial_size=cfg.resize_shape),
     ToTensord(keys=['label'])
 ])
@@ -29,7 +30,8 @@ dataloader = DataLoader(dataset, cfg.batch_size)
 for batch in dataloader:
     binary_segmentation = batch['label']  # Binary segmentations
     binary_segmentation_np = binary_segmentation.squeeze().cpu().numpy()
-    mcs_vert, mcs_tri, _, _ = measure.marching_cubes(binary_segmentation_np, 0)
+    # mcs_vert, mcs_tri, _, _ = measure.marching_cubes(binary_segmentation_np, 1.0)
+    mcs_vert, mcs_tri = mcubes.marching_cubes(binary_segmentation_np, 0)
     mcs_mesh = o3d.geometry.TriangleMesh()
     mcs_mesh.vertices = o3d.utility.Vector3dVector(mcs_vert)
     mcs_mesh.triangles = o3d.utility.Vector3iVector(mcs_tri)
