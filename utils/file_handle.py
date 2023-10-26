@@ -49,3 +49,24 @@ def read_ma(filename):
     edges_to_remove = torch.stack(edges_to_remove)
     lines = edges[~torch.any(torch.all(edges[:, None] == edges_to_remove[None], dim=-1), dim=-1)]
     return vertices, radii, edges, faces, lines
+
+def write_ma(filename, vertices, radii, edges, faces):
+    num_vertices = vertices.shape[0]
+    num_edges = edges.shape[0]
+    num_faces = faces.shape[0]
+
+    with open(filename, 'w') as file:
+        # Write the counts of vertices, edges, and faces on the first line
+        file.write(f"{num_vertices} {num_edges} {num_faces}\n")
+
+        # Write vertices with coordinates and radii
+        for vertex, radius in zip(vertices, radii):
+            file.write(f"v {vertex[0].item()} {vertex[1].item()} {vertex[2].item()} {radius.item()}\n")
+
+        # Write edges
+        for edge in edges:
+            file.write(f"e {edge[0].item()} {edge[1].item()}\n")
+
+        # Write faces
+        for face in faces:
+            file.write(f"f {face[0].item()} {face[1].item()} {face[2].item()}\n")

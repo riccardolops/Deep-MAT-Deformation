@@ -1,4 +1,4 @@
-from pytorch_lightning.callbacks import Callback
+from lightning.pytorch.callbacks import Callback
 import pyvista as pv
 import numpy as np
 
@@ -100,3 +100,7 @@ class PyVistaGifCallback(Callback):
         for mesh_n in range(len(trainer.train_dataloader)):
             self.plotters[mesh_n].close()
         print("Training is finished!!! ᕙ(^▿^-ᕙ)")
+
+
+class MyPrintingCallback(Callback):
+    pass

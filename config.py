@@ -40,7 +40,7 @@ class Config:
         self.augmentation_shift_range = 10
 
         ''' Model '''
-        self.first_layer_channels = 16
+        self.first_layer_channels = 8
         self.num_input_channels = 1
         self.steps = 4
 

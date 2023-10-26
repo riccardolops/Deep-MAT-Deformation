@@ -1,4 +1,3 @@
-
 import torch.nn as nn
 import torch
 from model.graph_conv import Features2Features, Feature2VertexLayer
@@ -10,7 +9,7 @@ import torch.optim as optim
 from utils.file_handle import read_ma
 from model.graph_conv import adjacency_matrix
 import wandb
-import pytorch_lightning as pl
+import lightning.pytorch as pl
 
 
 
@@ -46,7 +45,7 @@ class LitVoxel2MAT(pl.LightningModule):
         self.graph_network = MATDecoder(config, A, D)
 
     def predict_step(self, batch, batch_idx, dataloader_idx=0):
-        volume_data = batch['volume']['data']
+        volume_data = batch['image']
         voxel_pred, MAT_deformed = self(volume_data)
         mask = (torch.argmax(F.softmax(voxel_pred, dim=1), dim=1)).squeeze(0)
         return mask, MAT_deformed, batch['surface_vtx'][0]
@@ -64,7 +63,7 @@ class LitVoxel2MAT(pl.LightningModule):
         return voxel_pred, MAT_deformed
 
     def loss(self, voxel_pred, MAT_deformed, batch):
-        target_segmentation = batch['segmentation']['data'].squeeze(0).long()
+        target_segmentation = batch['label'].squeeze(0).long()
         shape_xyz = batch['surface_vtx'][0]
         cross_entropy_loss = nn.CrossEntropyLoss(weight=self.ce_weight)
         ce_loss = cross_entropy_loss(voxel_pred, target_segmentation)
@@ -137,7 +136,7 @@ class LitVoxel2MAT(pl.LightningModule):
         return ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius
 
     def training_step(self, batch):
-        volume_data = batch['volume']['data']
+        volume_data = batch['image']
         voxel_pred, MAT_deformed = self(volume_data)
         self.training_outputs.append([voxel_pred, MAT_deformed])
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius = self.loss(voxel_pred, MAT_deformed, batch)
@@ -151,10 +150,10 @@ class LitVoxel2MAT(pl.LightningModule):
             loss_dice.item()
         ])
 
-        target_segmentation = batch['segmentation']['data'].squeeze(0).long()
+        target_segmentation = batch['label'].squeeze(0).long()
         shape_xyz = batch['surface_vtx'][0]
         self.training_targets.append([target_segmentation, shape_xyz])
-
+        
         return loss
 
     def on_train_epoch_end(self):
@@ -186,7 +185,7 @@ class LitVoxel2MAT(pl.LightningModule):
         self.training_targets.clear()
 
     def validation_step(self, batch, batch_idx):
-        volume_data = batch['volume']['data']
+        volume_data = batch['image']
         voxel_pred, MAT_deformed = self(volume_data)
         self.validation_outputs.append([voxel_pred, MAT_deformed])
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius = self.loss(voxel_pred, MAT_deformed, batch)
@@ -200,7 +199,7 @@ class LitVoxel2MAT(pl.LightningModule):
             loss_dice.item()
         ])
 
-        target_segmentation = batch['segmentation']['data'].squeeze(0).long()
+        target_segmentation = batch['label'].squeeze(0).long()
         shape_xyz = batch['surface_vtx'][0]
         self.validation_targets.append([target_segmentation, shape_xyz])
 
