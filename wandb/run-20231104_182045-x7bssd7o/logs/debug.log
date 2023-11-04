@@ -1,0 +1,34 @@
+2023-11-04 18:20:45,975 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Current SDK version is 0.15.12
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Configure stats pid to 24332
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Loading settings from C:\Users\rick\.config\wandb\settings
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Loading settings from C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\settings
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'root_dir': 'C:\\Users\\rick\\Documents\\GitHub\\Deep-MAT-Deformation', 'sweep_id': 'b0gsb4rf', 'entity': 'segment_', 'project': 'Deep-MAT-Deformation', 'run_id': 'x7bssd7o', 'sweep_param_path': 'C:\\Users\\rick\\Documents\\GitHub\\Deep-MAT-Deformation\\wandb\\sweep-b0gsb4rf\\config-x7bssd7o.yaml'}
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'sweep_heart.py', 'program_abspath': 'c:\\Users\\rick\\Documents\\GitHub\\Deep-MAT-Deformation\\sweep_heart.py', 'program': 'c:\\Users\\rick\\Documents\\GitHub\\Deep-MAT-Deformation\\sweep_heart.py'}
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_init.py:_log_setup():528] Logging user logs to C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182045-x7bssd7o\logs\debug.log
+2023-11-04 18:20:45,976 INFO    Thread-10 (_run_job):24332 [wandb_init.py:_log_setup():529] Logging internal logs to C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182045-x7bssd7o\logs\debug-internal.log
+2023-11-04 18:20:45,977 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():568] calling init triggers
+2023-11-04 18:20:45,977 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():575] wandb.init called with sweep_config: {'batch_norm': True, 'first_layer_channels': 16, 'graph_conv_layer_count': 4, 'learning_rate': 0.001}
+config: {}
+2023-11-04 18:20:45,977 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():618] starting backend
+2023-11-04 18:20:45,977 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():622] setting up manager
+2023-11-04 18:20:45,986 INFO    Thread-10 (_run_job):24332 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2023-11-04 18:20:45,988 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():628] backend started and connected
+2023-11-04 18:20:45,999 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_config_callback():1324] config_cb None None {'batch_norm': True, 'first_layer_channels': 16, 'graph_conv_layer_count': 4, 'learning_rate': 0.001}
+2023-11-04 18:20:46,000 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():720] updated telemetry
+2023-11-04 18:20:46,032 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():753] communicating run to backend with 90.0 second timeout
+2023-11-04 18:20:46,706 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_on_init():2220] communicating current version
+2023-11-04 18:20:47,095 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_on_init():2229] got version response 
+2023-11-04 18:20:47,095 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():804] starting run threads in backend
+2023-11-04 18:20:47,247 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_console_start():2199] atexit reg
+2023-11-04 18:20:47,247 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_redirect():2054] redirect: wrap_raw
+2023-11-04 18:20:47,248 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_redirect():2119] Wrapping output streams.
+2023-11-04 18:20:47,248 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_redirect():2144] Redirects installed.
+2023-11-04 18:20:47,248 INFO    Thread-10 (_run_job):24332 [wandb_init.py:init():845] run started, returning control to user process
+2023-11-04 18:20:59,498 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_finish():1934] finishing run segment_/Deep-MAT-Deformation/x7bssd7o
+2023-11-04 18:20:59,498 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_atexit_cleanup():2168] got exitcode: 1
+2023-11-04 18:20:59,498 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_restore():2151] restore
+2023-11-04 18:20:59,498 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_restore():2157] restore done
+2023-11-04 18:21:01,609 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_footer_history_summary_info():3599] rendering history
+2023-11-04 18:21:01,609 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_footer_history_summary_info():3631] rendering summary
+2023-11-04 18:21:01,613 INFO    Thread-10 (_run_job):24332 [wandb_run.py:_footer_sync_info():3558] logging synced files

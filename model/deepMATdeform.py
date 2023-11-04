@@ -10,6 +10,8 @@ from utils.file_handle import read_ma
 from model.graph_conv import adjacency_matrix
 import wandb
 import lightning.pytorch as pl
+from torchmetrics.classification import BinaryJaccardIndex
+from monai.metrics import compute_hausdorff_distance
 
 
 
@@ -43,6 +45,7 @@ class LitVoxel2MAT(pl.LightningModule):
         A = nn.Parameter(A, requires_grad=False)
         D = nn.Parameter(D, requires_grad=False)
         self.graph_network = MATDecoder(config, A, D)
+        self.jaccardmetric = BinaryJaccardIndex()
 
     def predict_step(self, batch, batch_idx, dataloader_idx=0):
         volume_data = batch['image']
@@ -135,19 +138,31 @@ class LitVoxel2MAT(pl.LightningModule):
 
         return ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius
 
+    def compute_scores(self, voxel_pred, MAT_deformed, batch):
+        target_segmentation = batch['label'].squeeze(0).long()
+        class_predictions = torch.argmax(F.softmax(voxel_pred, dim=1), dim=1)
+        segmentation_mask = (class_predictions == 1).float()
+        jaccardIdx = self.jaccardmetric(segmentation_mask, target_segmentation)
+        hausdorffDistance = compute_hausdorff_distance(segmentation_mask.unsqueeze(0), target_segmentation.unsqueeze(0), spacing=self.config.spacing)
+        return jaccardIdx, hausdorffDistance
+
     def training_step(self, batch):
         volume_data = batch['image']
         voxel_pred, MAT_deformed = self(volume_data)
         self.training_outputs.append([voxel_pred, MAT_deformed])
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius = self.loss(voxel_pred, MAT_deformed, batch)
+        jaccardIdx, hausdorffDistance = self.compute_scores(voxel_pred, MAT_deformed, batch)
         loss = self.config.lambda_sample * loss_sample + self.config.lambda_p2s * loss_point2sphere + self.config.lambda_radius * loss_radius + self.config.lambda_ce * ce_loss + self.config.lambda_dice * loss_dice
+        
         self.training_losses.append([
             loss.item(),
             loss_sample.item(),
             loss_point2sphere.item(),
             loss_radius.item(),
             ce_loss.item(),
-            loss_dice.item()
+            loss_dice.item(),
+            jaccardIdx.item(),
+            hausdorffDistance.item()
         ])
 
         target_segmentation = batch['label'].squeeze(0).long()
@@ -157,10 +172,11 @@ class LitVoxel2MAT(pl.LightningModule):
         return loss
 
     def on_train_epoch_end(self):
-        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean = np.mean(
+        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean, jaccardIdx_mean, hausdorffDistance_mean = np.mean(
             self.training_losses, axis=0)
         values = {"loss": loss_mean, "sample": loss_sample_mean, "Point2Sphere": loss_point2sphere_mean,
-                  "Radius": loss_radius_mean, "Cross Entropy": ce_loss_mean, "Dice Loss": dice_loss_mean}
+                  "Radius": loss_radius_mean, "Cross Entropy": ce_loss_mean, "Dice Loss": dice_loss_mean,
+                  "Dice Similarity Score": (1 - dice_loss_mean), "Jaccard Index": jaccardIdx_mean, "Hausdorff Distance (mm)": hausdorffDistance_mean}
         self.log_dict(values)
 
         for patient_pred, patient_target in zip(self.training_outputs, self.training_targets):
@@ -189,6 +205,7 @@ class LitVoxel2MAT(pl.LightningModule):
         voxel_pred, MAT_deformed = self(volume_data)
         self.validation_outputs.append([voxel_pred, MAT_deformed])
         ce_loss, loss_dice, loss_sample, loss_point2sphere, loss_radius = self.loss(voxel_pred, MAT_deformed, batch)
+        jaccardIdx, hausdorffDistance = self.compute_scores(voxel_pred, MAT_deformed, batch)
         loss = loss_sample + self.config.lambda_p2s * loss_point2sphere + self.config.lambda_radius * loss_radius + self.config.lambda_ce * ce_loss + self.config.lambda_dice * loss_dice
         self.validation_losses.append([
             loss.item(),
@@ -196,7 +213,9 @@ class LitVoxel2MAT(pl.LightningModule):
             loss_point2sphere.item(),
             loss_radius.item(),
             ce_loss.item(),
-            loss_dice.item()
+            loss_dice.item(),
+            jaccardIdx.item(),
+            hausdorffDistance.item()
         ])
 
         target_segmentation = batch['label'].squeeze(0).long()
@@ -204,10 +223,11 @@ class LitVoxel2MAT(pl.LightningModule):
         self.validation_targets.append([target_segmentation, shape_xyz])
 
     def on_validation_epoch_end(self):
-        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean = np.mean(
+        loss_mean, loss_sample_mean, loss_point2sphere_mean, loss_radius_mean, ce_loss_mean, dice_loss_mean, jaccardIdx_mean, hausdorffDistance_mean = np.mean(
             self.validation_losses, axis=0)
         values = {"val_loss": loss_mean, "val_sample": loss_sample_mean, "val_Point2Sphere": loss_point2sphere_mean,
-                  "val_Radius": loss_radius_mean, "val_Cross Entropy": ce_loss_mean, "val_Dice Loss": dice_loss_mean}
+                  "val_Radius": loss_radius_mean, "val_Cross Entropy": ce_loss_mean, "val_Dice Loss": dice_loss_mean,
+                  "val_Dice Similarity Score": (1 - dice_loss_mean), "val_Jaccard Index": jaccardIdx_mean, "val_Hausdorff Distance (mm)": hausdorffDistance_mean}
         self.log_dict(values)
 
         for patient_pred, patient_target in zip(self.validation_outputs, self.validation_targets):

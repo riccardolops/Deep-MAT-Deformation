@@ -1,0 +1,189 @@
+2023-11-04 18:18:53,580 INFO    StreamThr :20024 [internal.py:wandb_internal():86] W&B internal server running at pid: 20024, started at: 2023-11-04 18:18:53.579797
+2023-11-04 18:18:53,581 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: status
+2023-11-04 18:18:53,591 INFO    WriterThread:20024 [datastore.py:open_for_write():85] open: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\run-bq9qcyuy.wandb
+2023-11-04 18:18:53,592 DEBUG   SenderThread:20024 [sender.py:send():380] send: header
+2023-11-04 18:18:53,626 DEBUG   SenderThread:20024 [sender.py:send():380] send: run
+2023-11-04 18:18:54,288 INFO    SenderThread:20024 [dir_watcher.py:__init__():211] watching files in: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files
+2023-11-04 18:18:54,288 INFO    SenderThread:20024 [sender.py:_start_run_threads():1122] run started: bq9qcyuy with start time 1699118333.578796
+2023-11-04 18:18:54,302 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: check_version
+2023-11-04 18:18:54,302 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: check_version
+2023-11-04 18:18:54,690 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: run_start
+2023-11-04 18:18:54,706 DEBUG   HandlerThread:20024 [system_info.py:__init__():32] System info init
+2023-11-04 18:18:54,707 DEBUG   HandlerThread:20024 [system_info.py:__init__():47] System info init done
+2023-11-04 18:18:54,707 INFO    HandlerThread:20024 [system_monitor.py:start():194] Starting system monitor
+2023-11-04 18:18:54,707 INFO    SystemMonitor:20024 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2023-11-04 18:18:54,707 INFO    HandlerThread:20024 [system_monitor.py:probe():214] Collecting system info
+2023-11-04 18:18:54,711 INFO    SystemMonitor:20024 [interfaces.py:start():190] Started cpu monitoring
+2023-11-04 18:18:54,712 INFO    SystemMonitor:20024 [interfaces.py:start():190] Started disk monitoring
+2023-11-04 18:18:54,713 INFO    SystemMonitor:20024 [interfaces.py:start():190] Started gpu monitoring
+2023-11-04 18:18:54,720 INFO    SystemMonitor:20024 [interfaces.py:start():190] Started memory monitoring
+2023-11-04 18:18:54,725 INFO    SystemMonitor:20024 [interfaces.py:start():190] Started network monitoring
+2023-11-04 18:18:54,739 DEBUG   HandlerThread:20024 [system_info.py:probe():196] Probing system
+2023-11-04 18:18:54,741 DEBUG   HandlerThread:20024 [system_info.py:_probe_git():181] Probing git
+2023-11-04 18:18:54,800 DEBUG   HandlerThread:20024 [system_info.py:_probe_git():189] Probing git done
+2023-11-04 18:18:54,800 DEBUG   HandlerThread:20024 [system_info.py:probe():244] Probing system done
+2023-11-04 18:18:54,800 DEBUG   HandlerThread:20024 [system_monitor.py:probe():223] {'os': 'Windows-10-10.0.19045-SP0', 'python': '3.10.13', 'heartbeatAt': '2023-11-04T17:18:54.739637', 'startedAt': '2023-11-04T17:18:53.563195', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'c:\\Users\\rick\\Documents\\GitHub\\Deep-MAT-Deformation\\sweep_heart.py', 'codePathLocal': 'sweep_heart.py', 'codePath': 'sweep_heart.py', 'git': {'remote': 'https://github.com/riccardolops/Deep-MAT-Deformation.git', 'commit': '72e935427fd85cbaff9855d2c8102b0731a8cfe5'}, 'email': 'r.lops1@studenti.poliba.it', 'root': 'C:/Users/rick/Documents/GitHub/Deep-MAT-Deformation', 'host': 'osmium-win', 'username': 'rick', 'executable': 'C:\\Users\\rick\\miniconda3\\envs\\DMD\\python.exe', 'cpu_count': 8, 'cpu_count_logical': 16, 'cpu_freq': {'current': 3600.0, 'min': 0.0, 'max': 3600.0}, 'cpu_freq_per_core': [{'current': 3600.0, 'min': 0.0, 'max': 3600.0}], 'disk': {'/': {'total': 953.8681602478027, 'used': 587.1818504333496}}, 'gpu': 'NVIDIA GeForce RTX 2060', 'gpu_count': 2, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 2060', 'memory_total': 6442450944}, {'name': 'NVIDIA GeForce GTX 1080', 'memory_total': 8589934592}], 'memory': {'total': 63.92353820800781}}
+2023-11-04 18:18:54,800 INFO    HandlerThread:20024 [system_monitor.py:probe():224] Finished collecting system info
+2023-11-04 18:18:54,800 INFO    HandlerThread:20024 [system_monitor.py:probe():227] Publishing system info
+2023-11-04 18:18:54,800 DEBUG   HandlerThread:20024 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-11-04 18:18:54,801 DEBUG   HandlerThread:20024 [system_info.py:_save_pip():68] Saving pip packages done
+2023-11-04 18:18:54,801 DEBUG   HandlerThread:20024 [system_info.py:_save_conda():75] Saving list of conda packages installed into the current environment
+2023-11-04 18:18:54,804 ERROR   HandlerThread:20024 [system_info.py:_save_conda():86] Error saving conda packages: [WinError 2] Impossibile trovare il file specificato
+Traceback (most recent call last):
+  File "C:\Users\rick\miniconda3\envs\DMD\lib\site-packages\wandb\sdk\internal\system\system_info.py", line 82, in _save_conda
+    subprocess.call(
+  File "C:\Users\rick\miniconda3\envs\DMD\lib\subprocess.py", line 345, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Users\rick\miniconda3\envs\DMD\lib\subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\rick\miniconda3\envs\DMD\lib\subprocess.py", line 1456, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] Impossibile trovare il file specificato
+2023-11-04 18:18:54,806 DEBUG   HandlerThread:20024 [system_info.py:_save_conda():87] Saving conda packages done
+2023-11-04 18:18:54,806 INFO    HandlerThread:20024 [system_monitor.py:probe():229] Finished publishing system info
+2023-11-04 18:18:54,810 DEBUG   SenderThread:20024 [sender.py:send():380] send: files
+2023-11-04 18:18:54,810 INFO    SenderThread:20024 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2023-11-04 18:18:54,819 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-04 18:18:54,819 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: stop_status
+2023-11-04 18:18:54,821 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-04 18:18:55,258 DEBUG   SenderThread:20024 [sender.py:send():380] send: telemetry
+2023-11-04 18:18:55,293 INFO    Thread-16 :20024 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\output.log
+2023-11-04 18:18:55,293 INFO    Thread-16 :20024 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\requirements.txt
+2023-11-04 18:18:55,293 INFO    Thread-16 :20024 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\wandb-metadata.json
+2023-11-04 18:18:55,293 INFO    Thread-16 :20024 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\conda-environment.yaml
+2023-11-04 18:18:55,318 DEBUG   SenderThread:20024 [sender.py:send():380] send: telemetry
+2023-11-04 18:18:55,319 DEBUG   SenderThread:20024 [sender.py:send():380] send: exit
+2023-11-04 18:18:55,319 INFO    SenderThread:20024 [sender.py:send_exit():585] handling exit code: 1
+2023-11-04 18:18:55,319 INFO    SenderThread:20024 [sender.py:send_exit():587] handling runtime: 0
+2023-11-04 18:18:55,320 INFO    SenderThread:20024 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-11-04 18:18:55,320 INFO    SenderThread:20024 [sender.py:send_exit():593] send defer
+2023-11-04 18:18:55,320 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,320 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 0
+2023-11-04 18:18:55,321 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,321 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 0
+2023-11-04 18:18:55,321 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 1
+2023-11-04 18:18:55,321 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,321 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 1
+2023-11-04 18:18:55,321 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,321 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 1
+2023-11-04 18:18:55,321 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 2
+2023-11-04 18:18:55,321 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,321 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 2
+2023-11-04 18:18:55,322 INFO    HandlerThread:20024 [system_monitor.py:finish():203] Stopping system monitor
+2023-11-04 18:18:55,322 INFO    HandlerThread:20024 [interfaces.py:finish():202] Joined cpu monitor
+2023-11-04 18:18:55,322 DEBUG   SystemMonitor:20024 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2023-11-04 18:18:55,322 INFO    HandlerThread:20024 [interfaces.py:finish():202] Joined disk monitor
+2023-11-04 18:18:55,329 DEBUG   SystemMonitor:20024 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2023-11-04 18:18:55,329 DEBUG   SystemMonitor:20024 [system_monitor.py:_start():183] Publishing last batch of metrics
+2023-11-04 18:18:55,425 INFO    HandlerThread:20024 [interfaces.py:finish():202] Joined gpu monitor
+2023-11-04 18:18:55,426 INFO    HandlerThread:20024 [interfaces.py:finish():202] Joined memory monitor
+2023-11-04 18:18:55,426 INFO    HandlerThread:20024 [interfaces.py:finish():202] Joined network monitor
+2023-11-04 18:18:55,426 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,427 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 2
+2023-11-04 18:18:55,427 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 3
+2023-11-04 18:18:55,427 DEBUG   SenderThread:20024 [sender.py:send():380] send: stats
+2023-11-04 18:18:55,427 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,427 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 3
+2023-11-04 18:18:55,427 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,427 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 3
+2023-11-04 18:18:55,427 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 4
+2023-11-04 18:18:55,427 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,428 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 4
+2023-11-04 18:18:55,428 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,428 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 4
+2023-11-04 18:18:55,428 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 5
+2023-11-04 18:18:55,428 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,428 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 5
+2023-11-04 18:18:55,428 DEBUG   SenderThread:20024 [sender.py:send():380] send: summary
+2023-11-04 18:18:55,429 INFO    SenderThread:20024 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-11-04 18:18:55,429 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,429 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 5
+2023-11-04 18:18:55,429 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 6
+2023-11-04 18:18:55,429 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,429 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 6
+2023-11-04 18:18:55,429 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,430 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 6
+2023-11-04 18:18:55,434 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: status_report
+2023-11-04 18:18:55,645 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 7
+2023-11-04 18:18:55,645 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:55,645 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 7
+2023-11-04 18:18:55,645 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:55,645 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 7
+2023-11-04 18:18:55,836 INFO    wandb-upload_0:20024 [upload_job.py:push():131] Uploaded file C:\Users\rick\AppData\Local\Temp\tmpy570ljfhwandb\09uqfeck-wandb-metadata.json
+2023-11-04 18:18:56,293 INFO    Thread-16 :20024 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\config.yaml
+2023-11-04 18:18:56,293 INFO    Thread-16 :20024 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\wandb-summary.json
+2023-11-04 18:18:56,324 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-04 18:18:57,264 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 8
+2023-11-04 18:18:57,265 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: poll_exit
+2023-11-04 18:18:57,265 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:57,265 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 8
+2023-11-04 18:18:57,266 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:57,266 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 8
+2023-11-04 18:18:57,266 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 9
+2023-11-04 18:18:57,266 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:57,266 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 9
+2023-11-04 18:18:57,266 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:57,266 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 9
+2023-11-04 18:18:57,266 INFO    SenderThread:20024 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-11-04 18:18:57,296 INFO    SenderThread:20024 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\output.log
+2023-11-04 18:18:57,296 INFO    SenderThread:20024 [dir_watcher.py:finish():388] scan: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files
+2023-11-04 18:18:57,296 INFO    SenderThread:20024 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\conda-environment.yaml conda-environment.yaml
+2023-11-04 18:18:57,296 INFO    SenderThread:20024 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\config.yaml config.yaml
+2023-11-04 18:18:57,297 INFO    SenderThread:20024 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\output.log output.log
+2023-11-04 18:18:57,299 INFO    SenderThread:20024 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\requirements.txt requirements.txt
+2023-11-04 18:18:57,299 INFO    SenderThread:20024 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\wandb-metadata.json wandb-metadata.json
+2023-11-04 18:18:57,301 INFO    SenderThread:20024 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\wandb-summary.json wandb-summary.json
+2023-11-04 18:18:57,302 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 10
+2023-11-04 18:18:57,304 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:57,304 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 10
+2023-11-04 18:18:57,305 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:57,305 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 10
+2023-11-04 18:18:57,306 INFO    SenderThread:20024 [file_pusher.py:finish():175] shutting down file pusher
+2023-11-04 18:18:57,327 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-04 18:18:57,327 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: poll_exit
+2023-11-04 18:18:57,713 INFO    wandb-upload_1:20024 [upload_job.py:push():131] Uploaded file C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\output.log
+2023-11-04 18:18:58,030 INFO    wandb-upload_0:20024 [upload_job.py:push():131] Uploaded file C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\config.yaml
+2023-11-04 18:18:58,071 INFO    wandb-upload_2:20024 [upload_job.py:push():131] Uploaded file C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\requirements.txt
+2023-11-04 18:18:58,338 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-04 18:18:58,339 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: poll_exit
+2023-11-04 18:18:58,374 INFO    wandb-upload_3:20024 [upload_job.py:push():131] Uploaded file C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\files\wandb-summary.json
+2023-11-04 18:18:58,589 INFO    Thread-15 (_thread_body):20024 [sender.py:transition_state():613] send defer: 11
+2023-11-04 18:18:58,589 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:58,589 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 11
+2023-11-04 18:18:58,590 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:58,590 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 11
+2023-11-04 18:18:58,590 INFO    SenderThread:20024 [file_pusher.py:join():181] waiting for file pusher
+2023-11-04 18:18:58,590 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 12
+2023-11-04 18:18:58,590 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:58,590 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 12
+2023-11-04 18:18:58,590 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:58,590 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 12
+2023-11-04 18:18:58,590 INFO    SenderThread:20024 [file_stream.py:finish():595] file stream finish called
+2023-11-04 18:18:58,790 INFO    SenderThread:20024 [file_stream.py:finish():599] file stream finish is done
+2023-11-04 18:18:58,790 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 13
+2023-11-04 18:18:58,791 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:58,791 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 13
+2023-11-04 18:18:58,791 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:58,791 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 13
+2023-11-04 18:18:58,791 INFO    SenderThread:20024 [sender.py:transition_state():613] send defer: 14
+2023-11-04 18:18:58,791 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: defer
+2023-11-04 18:18:58,791 INFO    HandlerThread:20024 [handler.py:handle_request_defer():172] handle defer: 14
+2023-11-04 18:18:58,792 DEBUG   SenderThread:20024 [sender.py:send():380] send: final
+2023-11-04 18:18:58,792 DEBUG   SenderThread:20024 [sender.py:send():380] send: footer
+2023-11-04 18:18:58,792 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: defer
+2023-11-04 18:18:58,792 INFO    SenderThread:20024 [sender.py:send_request_defer():609] handle sender defer: 14
+2023-11-04 18:18:58,793 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-04 18:18:58,794 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-04 18:18:58,794 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: server_info
+2023-11-04 18:18:58,795 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: get_summary
+2023-11-04 18:18:58,795 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: sampled_history
+2023-11-04 18:18:58,795 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: poll_exit
+2023-11-04 18:18:58,795 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: job_info
+2023-11-04 18:18:58,796 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: server_info
+2023-11-04 18:18:58,964 DEBUG   SenderThread:20024 [sender.py:send_request():407] send_request: job_info
+2023-11-04 18:18:58,965 DEBUG   HandlerThread:20024 [handler.py:handle_request():146] handle_request: shutdown
+2023-11-04 18:18:58,965 INFO    HandlerThread:20024 [handler.py:finish():866] shutting down handler
+2023-11-04 18:18:59,798 INFO    WriterThread:20024 [datastore.py:close():294] close: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_181853-bq9qcyuy\run-bq9qcyuy.wandb
+2023-11-04 18:18:59,968 INFO    SenderThread:20024 [sender.py:finish():1534] shutting down sender
+2023-11-04 18:18:59,968 INFO    SenderThread:20024 [file_pusher.py:finish():175] shutting down file pusher
+2023-11-04 18:18:59,968 INFO    SenderThread:20024 [file_pusher.py:join():181] waiting for file pusher

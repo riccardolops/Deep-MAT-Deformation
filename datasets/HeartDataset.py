@@ -1,5 +1,4 @@
 from glob import glob
-from typing import Mapping, Hashable
 import os
 from monai.config import KeysCollection
 from monai.data import PersistentDataset, DataLoader, partition_dataset
@@ -33,10 +32,11 @@ class HeartDataset(PersistentDataset):
         Returns:
             dict: A dictionary of subjects from the dataset.
         """
-        images = sorted(glob(os.path.join(self.cfg.dataset_path, '*', '*', '*.nrrd')))
-        labels = sorted(glob(os.path.join(self.cfg.dataset_path, '*', '*', '*.seg.nrrd')))
-        images = [image for image in images if image not in labels]
-        models = sorted(glob(os.path.join(self.cfg.dataset_path, '*', '*', '*.obj')))
+        images = sorted(glob(os.path.join(self.cfg.dataset_path, 'imagesTr', '*.nii.gz')))
+        labels = sorted(glob(os.path.join(self.cfg.dataset_path, 'labelsTr', '*.nii.gz')))
+        m_labels = sorted(glob(os.path.join(self.cfg.dataset_path, 'labelsTr', '*dist.nii.gz')))
+        labels = [image for image in labels if image not in m_labels]
+        models = sorted(glob(os.path.join(self.cfg.dataset_path, 'labelsTr', '*.obj')))
         datalist = [{"image": image_name, "label": label_name, "surface_vtx": model_name} for image_name, label_name, model_name in zip(images, labels, models)]
         train_datalist, val_datalist = partition_dataset(
             datalist,

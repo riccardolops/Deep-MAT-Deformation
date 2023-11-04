@@ -1,0 +1,19 @@
+2023-11-04 18:22:45,728 INFO    StreamThr :23628 [internal.py:wandb_internal():86] W&B internal server running at pid: 23628, started at: 2023-11-04 18:22:45.727243
+2023-11-04 18:22:45,729 DEBUG   HandlerThread:23628 [handler.py:handle_request():146] handle_request: status
+2023-11-04 18:22:45,740 INFO    WriterThread:23628 [datastore.py:open_for_write():85] open: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182245-bv6y42oh\run-bv6y42oh.wandb
+2023-11-04 18:22:45,741 DEBUG   SenderThread:23628 [sender.py:send():380] send: header
+2023-11-04 18:22:45,774 DEBUG   SenderThread:23628 [sender.py:send():380] send: run
+2023-11-04 18:22:46,501 INFO    SenderThread:23628 [dir_watcher.py:__init__():211] watching files in: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182245-bv6y42oh\files
+2023-11-04 18:22:46,501 INFO    SenderThread:23628 [sender.py:_start_run_threads():1122] run started: bv6y42oh with start time 1699118565.727243
+2023-11-04 18:22:46,742 WARNING StreamThr :23628 [internal.py:is_dead():414] Internal process exiting, parent pid 23208 disappeared
+2023-11-04 18:22:46,743 ERROR   StreamThr :23628 [internal.py:wandb_internal():152] Internal process shutdown.
+2023-11-04 18:22:46,784 INFO    HandlerThread:23628 [handler.py:finish():866] shutting down handler
+2023-11-04 18:22:46,784 INFO    WriterThread:23628 [datastore.py:close():294] close: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182245-bv6y42oh\run-bv6y42oh.wandb
+2023-11-04 18:22:47,502 INFO    SenderThread:23628 [sender.py:finish():1534] shutting down sender
+2023-11-04 18:22:47,502 INFO    SenderThread:23628 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-11-04 18:22:48,516 INFO    SenderThread:23628 [dir_watcher.py:finish():388] scan: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182245-bv6y42oh\files
+2023-11-04 18:22:48,516 INFO    SenderThread:23628 [dir_watcher.py:finish():402] scan save: C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182245-bv6y42oh\files\config.yaml config.yaml
+2023-11-04 18:22:48,517 INFO    SenderThread:23628 [file_pusher.py:finish():175] shutting down file pusher
+2023-11-04 18:22:48,517 INFO    SenderThread:23628 [file_pusher.py:join():181] waiting for file pusher
+2023-11-04 18:22:49,403 INFO    wandb-upload_0:23628 [upload_job.py:push():131] Uploaded file C:\Users\rick\Documents\GitHub\Deep-MAT-Deformation\wandb\run-20231104_182245-bv6y42oh\files\config.yaml
+2023-11-04 18:22:49,404 INFO    MainThread:23628 [internal.py:handle_exit():76] Internal process exited

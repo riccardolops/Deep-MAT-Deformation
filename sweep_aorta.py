@@ -5,7 +5,7 @@ from model.deepMATdeform import LitVoxel2MAT
 from pytorch_lightning.loggers.wandb import WandbLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 import wandb
-from AortaDataset import AortaDataset, LoadObjd
+from datasets.AortaDataset import AortaDataset, LoadObjd
 
 
 cfg = Config()

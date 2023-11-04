@@ -7,8 +7,7 @@ from pytorch_lightning.loggers.wandb import WandbLogger
 from model.callbacks import GifCallback
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
-import torch
-import torch.nn as nn
+
 
 
 cfg = Config()

@@ -1,0 +1,57 @@
+{
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.10.13",
+    "heartbeatAt": "2023-11-04T17:18:29.677021",
+    "startedAt": "2023-11-04T17:18:28.478410",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\rick\\Documents\\GitHub\\Deep-MAT-Deformation\\sweep_heart.py",
+    "codePathLocal": "sweep_heart.py",
+    "codePath": "sweep_heart.py",
+    "git": {
+        "remote": "https://github.com/riccardolops/Deep-MAT-Deformation.git",
+        "commit": "72e935427fd85cbaff9855d2c8102b0731a8cfe5"
+    },
+    "email": "r.lops1@studenti.poliba.it",
+    "root": "C:/Users/rick/Documents/GitHub/Deep-MAT-Deformation",
+    "host": "osmium-win",
+    "username": "rick",
+    "executable": "C:\\Users\\rick\\miniconda3\\envs\\DMD\\python.exe",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3600.0,
+        "min": 0.0,
+        "max": 3600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3600.0,
+            "min": 0.0,
+            "max": 3600.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 953.8681602478027,
+            "used": 587.1808815002441
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 2060",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 2060",
+            "memory_total": 6442450944
+        },
+        {
+            "name": "NVIDIA GeForce GTX 1080",
+            "memory_total": 8589934592
+        }
+    ],
+    "memory": {
+        "total": 63.92353820800781
+    }
+}

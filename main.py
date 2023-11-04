@@ -6,9 +6,11 @@ from model.deepMATdeform import LitVoxel2MAT
 from lightning.pytorch.loggers.wandb import WandbLogger
 from model.callbacks import GifCallback
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
-from AortaDataset import AortaDataset, LoadObjd
+# from datasets.AortaDataset import AortaDataset, LoadObjd
+from datasets.HeartDataset import HeartDataset, LoadObjd
 
 cfg = Config()
+# old
 # preprocessing = tio.RescaleIntensity((0, 1))
 # transform_train = tio.Compose([
 #     tio.Resample(1.25),
@@ -24,19 +26,36 @@ cfg = Config()
 # train_dataloader = train_dataset.get_loader(cfg)
 # val_dataset = Heart(cfg.dataset_path, 'val', transform_val)
 # val_dataloader = val_dataset.get_loader(cfg)
+
+# new
+# keys = ['image', 'label']
+# transform_train = Compose([
+#     LoadImaged(keys=keys),
+#     LoadObjd(keys=['surface_vtx']),
+#     EnsureChannelFirstd(keys=keys),
+#     Spacingd(keys=keys, pixdim=(3, 3, 3)),
+#     ScaleIntensityd(keys=['image'], minv=0.0, maxv=1.0),
+#     Resized(keys=keys, spatial_size=cfg.resize_shape),
+#     ToTensord(keys=keys)
+#  ])
+# train_dataset = AortaDataset(cfg, 'train', transform_train)
+# train_dataloader = train_dataset.get_loader()
+# val_dataset = AortaDataset(cfg, 'val', transform_train)
+# val_dataloader = val_dataset.get_loader()
+
 keys = ['image', 'label']
 transform_train = Compose([
     LoadImaged(keys=keys),
     LoadObjd(keys=['surface_vtx']),
     EnsureChannelFirstd(keys=keys),
-    Spacingd(keys=keys, pixdim=(3, 3, 3)),
+    Spacingd(keys=keys, pixdim=(cfg.spacing, cfg.spacing, cfg.spacing)),
     ScaleIntensityd(keys=['image'], minv=0.0, maxv=1.0),
     Resized(keys=keys, spatial_size=cfg.resize_shape),
     ToTensord(keys=keys)
  ])
-train_dataset = AortaDataset(cfg, 'train', transform_train)
+train_dataset = HeartDataset(cfg, 'train', transform_train)
 train_dataloader = train_dataset.get_loader()
-val_dataset = AortaDataset(cfg, 'val', transform_train)
+val_dataset = HeartDataset(cfg, 'val', transform_train)
 val_dataloader = val_dataset.get_loader()
 
 if cfg.restore_ckpt:
