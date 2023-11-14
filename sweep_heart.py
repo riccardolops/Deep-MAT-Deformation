@@ -6,6 +6,7 @@ from lightning.pytorch.loggers.wandb import WandbLogger
 from lightning.pytorch.callbacks import ModelCheckpoint
 import wandb
 from datasets.HeartDataset import HeartDataset, LoadObjd
+import torch
 
 
 cfg = Config()
@@ -34,7 +35,8 @@ def train():
     cfg.graph_conv_layer_count = wandb.config.graph_conv_layer_count
 
     logger = WandbLogger(project="Deep-MAT-Deformation", save_dir=cfg.save_path)
-    trainer = pl.Trainer(accelerator="gpu", profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
+    trainer = pl.Trainer(accelerator="gpu", devices=[1], profiler=cfg.profiler, log_every_n_steps=cfg.eval_every, logger=logger, callbacks=callbacks, max_epochs=cfg.numb_of_epochs, default_root_dir=cfg.save_path)
     trainer.fit(LitVoxel2MAT(cfg), train_dataloader, val_dataloader)
+    torch.cuda.empty_cache()
 
 wandb.agent('segment_/Deep-MAT-Deformation/b0gsb4rf',function=train, project="Deep-MAT-Deformation")
