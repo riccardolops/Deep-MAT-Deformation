@@ -43,9 +43,9 @@ class Config:
         ''' Model Parameters to sweep '''
         self.learning_rate = 1e-3
         self.batch_norm = True
-        self.first_layer_channels = 8
+        self.first_layer_channels = 16
         self.steps = 5
-        self.graph_conv_layer_count = 4
+        self.graph_conv_layer_count = 3
 
         # Only supports batch size 1 at the moment.
         # self.batch_size = 1
@@ -54,7 +54,7 @@ class Config:
         
 
         ''' Training '''
-        self.numb_of_epochs = 100
+        self.numb_of_epochs = 300
         self.eval_every = 1  # saves results to disk
 
         ''' Weights Loss '''
